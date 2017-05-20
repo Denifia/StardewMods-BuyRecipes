@@ -19,7 +19,6 @@ namespace Denifia.Stardew.BuyRecipes
         /*********
         ** Properties
         *********/
-
         /// <summary>The mod configuration.</summary>
         private ModConfig _config;
 
@@ -31,13 +30,10 @@ namespace Denifia.Stardew.BuyRecipes
         private List<CookingRecipe> _thisWeeksRecipes;
         private int _seed;
         
-        
-
 
         /*********
         ** Public methods
         *********/
-
         /// <summary>
         /// Entry point for the mod.
         /// </summary>
@@ -57,7 +53,6 @@ namespace Denifia.Stardew.BuyRecipes
 #if (DEBUG)
             helper.ConsoleCommands.Add("buyallrecipes", $"Temporary. \n\nUsage: buyallrecipes", HandleCommand);
 #endif
-
 
             // Instance the Version Check Service
             new VersionCheckService(this);

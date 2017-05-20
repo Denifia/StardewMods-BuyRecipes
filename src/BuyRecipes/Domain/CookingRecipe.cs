@@ -1,4 +1,5 @@
-﻿using Denifia.Stardew.BuyRecipes.Framework;
+﻿using Denifia.Stardew.BuyRecipes.Core.Domain;
+using Denifia.Stardew.BuyRecipes.Framework;
 using System.Collections.Generic;
 using System.Reflection;
 

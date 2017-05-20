@@ -1,4 +1,5 @@
-﻿using Denifia.Stardew.BuyRecipes.Domain;
+﻿using Denifia.Stardew.BuyRecipes.Core.Domain;
+using Denifia.Stardew.BuyRecipes.Domain;
 using StardewModdingAPI;
 using StardewValley;
 using System;
@@ -7,12 +8,29 @@ using System.Linq;
 
 namespace Denifia.Stardew.BuyRecipes.Framework
 {
-    internal static class ModHelper
+    internal class ModHelper : Denifia.Stardew.BuyRecipes.Core.Framework.IModHelper
     {
-        private static List<GameItem> _gameObjects = new List<GameItem>();
-        public static List<GameItem> GameObjects => _gameObjects ?? (_gameObjects = DeserializeGameObjects().ToList());
+        private static ModHelper instance;
 
-        private static IEnumerable<GameItem> DeserializeGameObjects()
+        private ModHelper() { }
+
+        public static ModHelper Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ModHelper();
+                }
+                return instance;
+            }
+        }
+
+        private List<GameItem> _gameObjects = new List<GameItem>();
+
+        public List<GameItem> GameObjects => _gameObjects ?? (_gameObjects = DeserializeGameObjects().ToList());
+
+        private IEnumerable<GameItem> DeserializeGameObjects()
         {
             foreach (var item in Game1.objectInformation)
             {

@@ -54,8 +54,6 @@
     <Compile Include="Framework\RecipePricing\BaseRecipePricing.cs" />
     <Compile Include="Domain\CookingRecipe.cs" />
     <Compile Include="Framework\RecipePricing\FriendBasedRecipeAcquisition.cs" />
-    <Compile Include="Domain\GameItem.cs" />
-    <Compile Include="Domain\GameItemWithQuantity.cs" />
     <Compile Include="Framework\RecipePricing\LevelBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\RecipePricing\SkillBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\ModConstants.cs" />

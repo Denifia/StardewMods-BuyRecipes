@@ -1,4 +1,5 @@
-﻿using Denifia.Stardew.BuyRecipes.Domain;
+﻿using Denifia.Stardew.BuyRecipes.Core.Domain;
+using Denifia.Stardew.BuyRecipes.Domain;
 using System.Collections.Generic;
 
 namespace Denifia.Stardew.BuyRecipes.Framework
@@ -18,11 +19,11 @@ namespace Denifia.Stardew.BuyRecipes.Framework
             // Iterate in pairs
             for (int i = 0; i < dataParts.Length; i = i+2)
             {
-                yield return GameItemWithQuantity.Deserialise($"{dataParts[i]} {dataParts[i + 1]}");
+                yield return GameItemWithQuantity.Deserialise($"{dataParts[i]} {dataParts[i + 1]}", ModHelper.Instance);
             }
         }
 
         public static GameItemWithQuantity DeserializeIngredient(string data) 
-            => GameItemWithQuantity.Deserialise(data);
+            => GameItemWithQuantity.Deserialise(data, ModHelper.Instance);
     }
 }
