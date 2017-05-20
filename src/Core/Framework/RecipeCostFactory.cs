@@ -1,4 +1,5 @@
-﻿using Denifia.Stardew.BuyRecipes.Framework.RecipePricing;
+﻿using Denifia.Stardew.BuyRecipes.Core.Framework.RecipePricing;
+using Denifia.Stardew.BuyRecipes.Framework.Core.RecipePricing;
 using System;
 using System.Collections.Generic;
 using System.Linq;

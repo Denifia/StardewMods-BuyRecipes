@@ -50,12 +50,7 @@
     <Compile Include="BuyRecipesMod.cs" />
     <Compile Include="Domain\CookingRecipeData.cs" />
     <Compile Include="Framework\IngredientFactory.cs" />
-    <Compile Include="Framework\RecipeCostFactory.cs" />
-    <Compile Include="Framework\RecipePricing\BaseRecipePricing.cs" />
     <Compile Include="Domain\CookingRecipe.cs" />
-    <Compile Include="Framework\RecipePricing\FriendBasedRecipeAcquisition.cs" />
-    <Compile Include="Framework\RecipePricing\LevelBasedRecipeAcquisition.cs" />
-    <Compile Include="Framework\RecipePricing\SkillBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\ModConstants.cs" />
     <Compile Include="Framework\ModHelper.cs" />
     <Compile Include="Framework\UpdateHelper.cs" />

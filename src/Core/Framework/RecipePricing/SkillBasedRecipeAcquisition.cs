@@ -1,4 +1,4 @@
-﻿namespace Denifia.Stardew.BuyRecipes.Framework.RecipePricing
+﻿namespace Denifia.Stardew.BuyRecipes.Framework.Core.RecipePricing
 {
     public class SkillBasedRecipePricing : BaseRecipePricing
     {
