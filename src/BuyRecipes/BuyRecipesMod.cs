@@ -1,5 +1,4 @@
-﻿using Denifia.Stardew.BuyRecipes.Domain;
-using Denifia.Stardew.BuyRecipes.Framework;
+﻿using Denifia.Stardew.BuyRecipes.Framework;
 using Denifia.Stardew.BuyRecipes.Services;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -193,7 +192,7 @@ namespace Denifia.Stardew.BuyRecipes
             _unknownCookingRecipes = new List<CookingRecipe>();
             foreach (var recipe in CraftingRecipe.cookingRecipes)
             {
-                var cookingRecipe = CookingRecipe.Deserialise(recipe.Key, recipe.Value);
+                var cookingRecipe = CookingRecipe.Deserialise(recipe.Key, recipe.Value, ModHelper.Instance);
                 if (Game1.player.cookingRecipes.ContainsKey(cookingRecipe.Name))
                     _unknownCookingRecipes.Add(cookingRecipe);
             }

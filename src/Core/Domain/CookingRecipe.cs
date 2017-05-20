@@ -1,11 +1,11 @@
-﻿using Denifia.Stardew.BuyRecipes.Core.Domain;
+﻿using Denifia.Stardew.BuyRecipes.Core.Framework;
 using Denifia.Stardew.BuyRecipes.Framework;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Denifia.Stardew.BuyRecipes.Domain
+namespace Denifia.Stardew.BuyRecipes.Core.Domain
 {
-    internal class CookingRecipe
+    public class CookingRecipe
     {
         private string _name;
         private IEnumerable<GameItemWithQuantity> _ingredients;
@@ -17,11 +17,11 @@ namespace Denifia.Stardew.BuyRecipes.Domain
         public GameItemWithQuantity ResultingItem => _resultingItem;
         public int Cost => _cost;
 
-        public static CookingRecipe Deserialise(string name, string data)
+        public static CookingRecipe Deserialise(string name, string data, IModHelper modHelper)
         {
             var cookingRecipeData = CookingRecipeData.Deserialise(data);
-            var ingredients = IngredientFactory.DeserializeIngredients(cookingRecipeData.IngredientsData);
-            var resultingItem = IngredientFactory.DeserializeIngredient(cookingRecipeData.ResultingItemData);
+            var ingredients = IngredientFactory.DeserializeIngredients(cookingRecipeData.IngredientsData, modHelper);
+            var resultingItem = IngredientFactory.DeserializeIngredient(cookingRecipeData.ResultingItemData, modHelper);
             var cost = RecipePricingFactory.CalculatePrice(cookingRecipeData.AcquisitionData);
             return new CookingRecipe(name, ingredients, resultingItem, cost);
         }

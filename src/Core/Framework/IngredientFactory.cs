@@ -1,7 +1,7 @@
 ﻿using Denifia.Stardew.BuyRecipes.Core.Domain;
 using System.Collections.Generic;
 
-namespace Denifia.Stardew.BuyRecipes.Framework
+namespace Denifia.Stardew.BuyRecipes.Core.Framework
 {
     internal static class IngredientFactory
     {
@@ -10,7 +10,7 @@ namespace Denifia.Stardew.BuyRecipes.Framework
         /// </summary>
         /// <param name="data">Serialised string of Game Items in the format of "id quantity id quantity...".</param>
         /// <returns>The deserialised Game Items with Quantities.</returns>
-        public static IEnumerable<GameItemWithQuantity> DeserializeIngredients(string data)
+        public static IEnumerable<GameItemWithQuantity> DeserializeIngredients(string data, IModHelper modHelper)
         {
             var dataParts = data.Split(' ');
             if (dataParts.Length % 2 != 0) yield break;
@@ -18,11 +18,11 @@ namespace Denifia.Stardew.BuyRecipes.Framework
             // Iterate in pairs
             for (int i = 0; i < dataParts.Length; i = i+2)
             {
-                yield return GameItemWithQuantity.Deserialise($"{dataParts[i]} {dataParts[i + 1]}", ModHelper.Instance);
+                yield return GameItemWithQuantity.Deserialise($"{dataParts[i]} {dataParts[i + 1]}", modHelper);
             }
         }
 
-        public static GameItemWithQuantity DeserializeIngredient(string data) 
-            => GameItemWithQuantity.Deserialise(data, ModHelper.Instance);
+        public static GameItemWithQuantity DeserializeIngredient(string data, IModHelper modHelper) 
+            => GameItemWithQuantity.Deserialise(data, modHelper);
     }
 }

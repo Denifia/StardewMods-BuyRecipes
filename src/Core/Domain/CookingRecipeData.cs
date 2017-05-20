@@ -1,6 +1,6 @@
-﻿namespace Denifia.Stardew.BuyRecipes.Domain
+﻿namespace Denifia.Stardew.BuyRecipes.Core.Domain
 {
-    internal class CookingRecipeData
+    public class CookingRecipeData
     {
         public static CookingRecipeData Deserialise(string data)
         {

@@ -1,5 +1,4 @@
 ﻿using Denifia.Stardew.BuyRecipes.Core.Domain;
-using Denifia.Stardew.BuyRecipes.Domain;
 using StardewModdingAPI;
 using StardewValley;
 using System;
