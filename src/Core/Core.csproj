@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>Denifia.Stardew.BuyRecipes.Core</AssemblyName>
+    <RootNamespace>Denifia.Stardew.BuyRecipes.Core</RootNamespace>
+  </PropertyGroup>
+
+</Project>
