@@ -1,20 +1,31 @@
 ﻿namespace Denifia.Stardew.BuyRecipes.Core.Framework.RecipePricing
 {
-    public class SkillBasedRecipePricing : BaseRecipePricing
+    internal class SkillBasedRecipePricing : BaseRecipePricing
     {
-        private static readonly int pricePerLevel = 900;
+        protected static readonly new string _deserialisationToken = "s ";
 
-        public static new bool TryCalculatePrice(string data, out int cost)
+        private readonly int _pricePerLevel = 900;
+
+        private readonly int _skillLevel;
+        internal int SkillLevel => _skillLevel;
+        
+        public static new SkillBasedRecipePricing Deserialise(string data)
         {
-            cost = -1;
-            if (string.IsNullOrEmpty(data) || !data.StartsWith("s ")) return false;
-
             var dataParts = data.Split(' ');
             var skill = dataParts[1];
             var skillLevel = int.Parse(dataParts[2]);
 
-            cost = skillLevel * pricePerLevel;
-            return true;
+            return new SkillBasedRecipePricing(skillLevel);
+        }
+
+        public override int CalculatePrice()
+        {
+            return _skillLevel * _pricePerLevel;
+        }
+
+        protected SkillBasedRecipePricing(int skillLevel)
+        {
+            _skillLevel = skillLevel;
         }
     }
 }

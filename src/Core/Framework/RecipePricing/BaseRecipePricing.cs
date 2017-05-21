@@ -1,13 +1,27 @@
 ﻿namespace Denifia.Stardew.BuyRecipes.Core.Framework.RecipePricing
 {
-    public class BaseRecipePricing
+    internal class BaseRecipePricing : IRecipePricing
     {
-        private static readonly int defaultPrice = 1000;
+        protected static readonly string _deserialisationToken = "";
+        protected static readonly char _delimiter = ' ';
+        protected readonly int _defaultPrice = 1000;        
 
-        public static bool TryCalculatePrice(string data, out int price)
+        protected BaseRecipePricing() { }
+
+        public static bool CanDeserialise(string data)
         {
-            price = defaultPrice;
+            if (string.IsNullOrEmpty(data) || !data.StartsWith(_deserialisationToken)) return false;
             return true;
+        }
+
+        public static BaseRecipePricing Deserialise(string data)
+        {
+            return new BaseRecipePricing();
+        }
+
+        public virtual int CalculatePrice()
+        {
+            return _defaultPrice;
         }
     }
 }

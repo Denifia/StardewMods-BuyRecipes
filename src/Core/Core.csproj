@@ -50,8 +50,10 @@
     <Compile Include="Framework\RecipePricingFactory.cs" />
     <Compile Include="Framework\RecipePricing\BaseRecipePricing.cs" />
     <Compile Include="Framework\RecipePricing\FriendBasedRecipeAcquisition.cs" />
+    <Compile Include="Framework\RecipePricing\IRecipePricing.cs" />
     <Compile Include="Framework\RecipePricing\LevelBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\RecipePricing\SkillBasedRecipeAcquisition.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GameItemNameService.cs" />
     <Compile Include="Services\IGameItemNameService.cs" />
     <Compile Include="Smapi\LogLevel.cs" />

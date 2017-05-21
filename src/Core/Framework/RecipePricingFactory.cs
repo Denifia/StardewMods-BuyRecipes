@@ -21,8 +21,9 @@ namespace Denifia.Stardew.BuyRecipes.Framework
                 if (success) return cost;
             }
 
-            BaseRecipePricing.TryCalculatePrice(string.Empty, out int defaultCost);
-            return defaultCost;
+            //BaseRecipePricing.TryCalculatePrice(string.Empty, out int defaultCost);
+            //return defaultCost;
+            return 1; // todo: refactor
         }
     }
 }

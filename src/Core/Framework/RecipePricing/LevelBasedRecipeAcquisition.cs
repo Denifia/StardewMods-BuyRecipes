@@ -1,28 +1,32 @@
 ﻿namespace Denifia.Stardew.BuyRecipes.Core.Framework.RecipePricing
 {
-    public class LevelBasedRecipePricing : BaseRecipePricing
+    internal class LevelBasedRecipePricing : BaseRecipePricing
     {
-        private static readonly int pricePerLevel = 75;
-        private static readonly int priceAtLevel100 = 1750;
+        protected static readonly new string _deserialisationToken = "l ";
+        private readonly int _pricePerLevel = 75;
+        private readonly int _priceAtLevel100 = 1750;
+        private readonly int _level100 = 100;
+        private readonly int _playerLevel;
 
-        public static new bool TryCalculatePrice(string data, out int cost)
+        public static new LevelBasedRecipePricing Deserialise(string data)
         {
-            cost = -1;
-            if (string.IsNullOrEmpty(data) || !data.StartsWith("l ")) return false;
-
             var dataParts = data.Split(' ');
             var playerLevel = int.Parse(dataParts[1]);
 
-            if (playerLevel == 100)
-            {
-                cost = priceAtLevel100;
-            }
-            else
-            {
-                cost = playerLevel * pricePerLevel;
-            }
-            
-            return true;
+            return new LevelBasedRecipePricing(playerLevel);
+        }
+
+        public override int CalculatePrice()
+        {
+            if (_playerLevel == _level100)
+                return _priceAtLevel100;
+
+            return _playerLevel * _pricePerLevel;
+        }
+
+        protected LevelBasedRecipePricing(int level)
+        {
+            _playerLevel = level;
         }
     }
 }

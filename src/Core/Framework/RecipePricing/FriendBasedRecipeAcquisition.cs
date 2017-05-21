@@ -1,20 +1,28 @@
 ﻿namespace Denifia.Stardew.BuyRecipes.Core.Framework.RecipePricing
 {
-    public class FriendBasedRecipePricing : BaseRecipePricing
+    internal class FriendBasedRecipePricing : BaseRecipePricing
     {
-        private static readonly int pricePerLevel = 600;
+        protected static readonly new string _deserialisationToken = "f ";
+        private readonly int _pricePerLevel = 600;
+        private readonly int _friendLevel;
 
-        public static new bool TryCalculatePrice(string data, out int price)
+        public static new FriendBasedRecipePricing Deserialise(string data)
         {
-            price = -1;
-            if (string.IsNullOrEmpty(data) || !data.StartsWith("f ")) return false;
-
-            var dataParts = data.Split(' ');
+            var dataParts = data.Split(_delimiter);
             var friend = dataParts[1];
             var friendLevel = int.Parse(dataParts[2]);
 
-            price = friendLevel * pricePerLevel;
-            return true;
+            return new FriendBasedRecipePricing(friendLevel);
+        }
+
+        public override int CalculatePrice()
+        {
+            return _friendLevel * _pricePerLevel;
+        }
+
+        protected FriendBasedRecipePricing(int friendLevel)
+        {
+            _friendLevel = friendLevel;
         }
     }
 }
