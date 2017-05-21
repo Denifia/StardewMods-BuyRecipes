@@ -42,6 +42,8 @@
     <Compile Include="Domain\GameDateTime.cs" />
     <Compile Include="Domain\GameItem.cs" />
     <Compile Include="Domain\GameItemWithQuantity.cs" />
+    <Compile Include="Framework\ErrorHelper.cs" />
+    <Compile Include="Framework\IErrorHelper.cs" />
     <Compile Include="Framework\IngredientFactory.cs" />
     <Compile Include="Framework\RecipePricingFactory.cs" />
     <Compile Include="Framework\RecipePricing\BaseRecipePricing.cs" />

@@ -7,11 +7,6 @@ namespace Denifia.Stardew.BuyRecipes.Adapters
     {
         IMonitor _monitor;
 
-        public SmapiMonitorAdapter(IMonitor monitor)
-        {
-            _monitor = monitor;
-        }
-
         public void Log(string message, Core.Smapi.LogLevel level = Core.Smapi.LogLevel.Debug)
         {
             _monitor.Log(message, (LogLevel)level);

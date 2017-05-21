@@ -16,9 +16,6 @@ namespace Denifia.Stardew.BuyRecipes.Framework
         {
             foreach (var type in _recipeAcquisitionTypes)
             {
-                //var method = type.GetMethod("TryCalculatePrice");
-                //method.Invoke(null, conditions, out int cost);
-
                 var tryCalculatePrice = (TryCalculatePrice)Delegate.CreateDelegate(typeof(TryCalculatePrice), type.GetMethod("TryCalculatePrice"));
                 var success = tryCalculatePrice(conditions, out int cost);
                 if (success) return cost;

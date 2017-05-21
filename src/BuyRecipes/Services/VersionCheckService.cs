@@ -1,4 +1,6 @@
-﻿using Denifia.Stardew.BuyRecipes.Framework;
+﻿using Denifia.Stardew.BuyRecipes.Core.Adapters;
+using Denifia.Stardew.BuyRecipes.Core.Framework;
+using Denifia.Stardew.BuyRecipes.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using System;
@@ -7,6 +9,8 @@ namespace Denifia.Stardew.BuyRecipes.Services
 {
     public class VersionCheckService
     {
+        private IGameMessageAdapter _gameMessage;
+        private IErrorHelper _errorHelper;
         private IMod _mod;
         private Config _config;
         private ISemanticVersion _currentVersion;
@@ -16,6 +20,7 @@ namespace Denifia.Stardew.BuyRecipes.Services
         public VersionCheckService(IMod mod)
         {
             _mod = mod;
+
             _config = mod.Helper.ReadConfig<Config>();
             _currentVersion = mod.ModManifest.Version;
 
@@ -38,7 +43,7 @@ namespace Denifia.Stardew.BuyRecipes.Services
                 }
                 catch (Exception ex)
                 {
-                    ModHelper.HandleError(_mod, ex, "checking for a new version");
+                    _errorHelper.HandleError(ex, "checking for a new version");
                 }
             }
         }
@@ -51,11 +56,11 @@ namespace Denifia.Stardew.BuyRecipes.Services
                 try
                 {
                     _hasSeenUpdateWarning = true;
-                    ModHelper.ShowInfoMessage($"You can update {Constants.ModName} from {_currentVersion} to {_newRelease}.");
+                    _gameMessage.ShowInfoMessage($"You can update {Constants.ModName} from {_currentVersion} to {_newRelease}.");
                 }
                 catch (Exception ex)
                 {
-                    ModHelper.HandleError(_mod, ex, "showing the new version available");
+                    _errorHelper.HandleError(ex, "showing the new version available");
                 }
             }
         }

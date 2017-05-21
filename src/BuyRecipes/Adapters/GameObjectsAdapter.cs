@@ -22,7 +22,5 @@ namespace Denifia.Stardew.BuyRecipes.Adapters
                 yield return new GameItem(id: item.Key, name: item.Value.Split('/')[4]);
             }
         }
-
-        
     }
 }

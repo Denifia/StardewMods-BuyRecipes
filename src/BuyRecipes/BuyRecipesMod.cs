@@ -12,6 +12,8 @@ using Denifia.Stardew.BuyRecipes.Core.Domain;
 using Autofac;
 using Denifia.Stardew.BuyRecipes.Adapters;
 using Denifia.Stardew.BuyRecipes.Core.Adapters;
+using Denifia.Stardew.BuyRecipes.Core.Framework;
+using Denifia.Stardew.BuyRecipes.Core.Converters;
 
 namespace Denifia.Stardew.BuyRecipes
 {
@@ -47,8 +49,19 @@ namespace Denifia.Stardew.BuyRecipes
             builder.RegisterInstance(this).As<IMod>();
             builder.RegisterInstance(helper).As<IModHelper>();
             builder.RegisterInstance(this.Monitor).As<IMonitor>();
-            builder.RegisterType<SmapiMonitorAdapter>().As<ISmapiMonitorAdapter>().SingleInstance();
-            builder.RegisterType<GameObjectsAdapter>().As<IGameObjectsAdapter>().SingleInstance();
+
+            var conventions = new string[] { "Service", "Helper", "Adapter" };
+            builder.RegisterAssemblyTypes(typeof(BuyRecipesMod).Assembly)
+                .Where(t => conventions.Any(c => t.Name.EndsWith(c)))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .PropertiesAutowired();
+            builder.RegisterAssemblyTypes(typeof(ErrorHelper).Assembly)
+                .Where(t => conventions.Any(c => t.Name.EndsWith(c)))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .PropertiesAutowired();
+
             var container = builder.Build();
 
             _gameObjectsAdapter = container.Resolve<IGameObjectsAdapter>();
@@ -158,7 +171,7 @@ namespace Denifia.Stardew.BuyRecipes
                 Game1.player.cookingRecipes.Add(recipeName, 0);
                 Game1.player.Money -= recipe.Cost;
                 _unknownCookingRecipes.Remove(recipe);
-                Monitor.Log($"{recipeName} bought for {ModHelper.GetMoneyAsString(recipe.Cost)}!", LogLevel.Alert);
+                Monitor.Log($"{recipeName} bought for {MoneyConverter.GetMoneyAsString(recipe.Cost)}!", LogLevel.Alert);
             }
             else
             {
@@ -182,7 +195,7 @@ namespace Denifia.Stardew.BuyRecipes
             _thisWeeksRecipes = new List<CookingRecipe>();
 
             // Check if there is any unknown recipes
-            if (!TryShowNoRecipes()) return;
+            if (TryShowNoRecipes(_unknownCookingRecipes)) return;
 
             // Find up to 5 random recipes
             {
@@ -217,19 +230,19 @@ namespace Denifia.Stardew.BuyRecipes
         private bool TryShowWeeklyRecipes()
         {
             // Check if there is any unknown recipes 
-            if (!TryShowNoRecipes()) return false;
+            if (TryShowNoRecipes(_thisWeeksRecipes)) return false;
 
             // Print out the weekly recipes to the console
             Monitor.Log($"This weeks recipes are:", LogLevel.Alert);
-            _thisWeeksRecipes.ForEach(item => Monitor.Log($"{ModHelper.GetMoneyAsString(item.Cost)} - {item.Name}", LogLevel.Info));
+            _thisWeeksRecipes.ForEach(item => Monitor.Log($"{MoneyConverter.GetMoneyAsString(item.Cost)} - {item.Name}", LogLevel.Info));
             return true;
         }
 
         /// <summary>Writes a No Recipes message to the console if no recipes are found.</summary>
         /// <returns>True if no recipes are found and the message is written to the console.</returns>      
-        private bool TryShowNoRecipes()
+        private bool TryShowNoRecipes(List<CookingRecipe> recipes)
         {
-            if (_thisWeeksRecipes.Any()) return false;
+            if (recipes.Any()) return false;
 
             Monitor.Log($"No recipes availabe. You know them all.", LogLevel.Info);
             return true;

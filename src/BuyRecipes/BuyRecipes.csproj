@@ -55,7 +55,6 @@
     <Compile Include="Adapters\SmapiMonitorAdapter.cs" />
     <Compile Include="BuyRecipesMod.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Framework\ModHelper.cs" />
     <Compile Include="Framework\UpdateHelper.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
