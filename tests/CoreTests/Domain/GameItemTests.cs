@@ -11,35 +11,23 @@ namespace Denifia.Stardew.BuyRecipes.Tests.CoreTests.Domain
     public class GameItemTests
     {
         [TestMethod]
-        public void Deserialise_CorrectlyExtractsId()
+        [DataRow("1", 1)]
+        [DataRow("2", 2)]
+        [DataRow("3", 3)]
+        public void Deserialise_CorrectlyExtractsId(string serialisedGameItem, int expectedId)
         {
-            var expectedGameItem = new GameItem(1, null);
-            var gameItems = new List<GameItem>() { expectedGameItem };
-
-            var gameItem = GameItem.Deserialise("1");
-
-            Assert.AreEqual(expectedGameItem.Id, gameItem.Id, $"GameItem Id wasn't deserialised correctly.");
+            var gameItem = GameItem.Deserialise(serialisedGameItem);
+            Assert.AreEqual(expectedId, gameItem.Id, $"GameItem Id wasn't deserialised correctly when data was \"{serialisedGameItem}\".");
         }
 
         [TestMethod]
-        public void Deserialise_CorrectlyExtractsName()
+        [DataRow("1 test")]
+        [DataRow("blah")]
+        [DataRow("")]
+        public void Deserialise_IfBadInput_ReturnsNull(string badlySerialisedGameItem)
         {
-            var expectedGameItem = new GameItem(1, "Apple");
-            var gameItems = new List<GameItem>() { expectedGameItem };
-
-            var gameItem = GameItem.Deserialise("1");
-
-            Assert.AreEqual(expectedGameItem.Name, gameItem.Name, $"GameItem Name wasn't deserialised correctly.");
-        }
-
-        [TestMethod]
-        public void Deserialise_IfBadInput()
-        {
-            var gameItems = new List<GameItem>();
-
-            var gameItem = GameItem.Deserialise("1");
-
-            Assert.AreEqual(null, gameItem, $"GameItem was not null if t deserialised correctly.");
+            var gameItem = GameItem.Deserialise(badlySerialisedGameItem);
+            Assert.AreEqual(null, gameItem, $"GameItem was NOT null when input was bad (\"{badlySerialisedGameItem}\").");
         }
     }
 }
