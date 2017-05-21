@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Adapters\IGameMessageAdapter.cs" />
+    <Compile Include="Adapters\IGameObjectsAdapter.cs" />
+    <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Domain\CookingRecipe.cs" />
     <Compile Include="Domain\CookingRecipeData.cs" />
     <Compile Include="Domain\GameDateTime.cs" />

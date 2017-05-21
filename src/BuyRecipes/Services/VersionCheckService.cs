@@ -8,7 +8,7 @@ namespace Denifia.Stardew.BuyRecipes.Services
     public class VersionCheckService
     {
         private IMod _mod;
-        private ModConfig _config;
+        private Config _config;
         private ISemanticVersion _currentVersion;
         private ISemanticVersion _newRelease;
         private bool _hasSeenUpdateWarning;
@@ -16,7 +16,7 @@ namespace Denifia.Stardew.BuyRecipes.Services
         public VersionCheckService(IMod mod)
         {
             _mod = mod;
-            _config = mod.Helper.ReadConfig<ModConfig>();
+            _config = mod.Helper.ReadConfig<Config>();
             _currentVersion = mod.ModManifest.Version;
 
             GameEvents.GameLoaded += GameEvents_GameLoaded;
@@ -51,7 +51,7 @@ namespace Denifia.Stardew.BuyRecipes.Services
                 try
                 {
                     _hasSeenUpdateWarning = true;
-                    ModHelper.ShowInfoMessage($"You can update {ModConstants.ModName} from {_currentVersion} to {_newRelease}.");
+                    ModHelper.ShowInfoMessage($"You can update {Constants.ModName} from {_currentVersion} to {_newRelease}.");
                 }
                 catch (Exception ex)
                 {

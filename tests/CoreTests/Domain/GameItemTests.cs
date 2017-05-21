@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 
-namespace CoreTests.Domain
+namespace Denifia.Stardew.BuyRecipes.Tests.CoreTests.Domain
 {
     [TestClass]
     public class GameItemTests

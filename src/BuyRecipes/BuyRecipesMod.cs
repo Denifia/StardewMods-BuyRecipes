@@ -19,7 +19,7 @@ namespace Denifia.Stardew.BuyRecipes
         ** Properties
         *********/
         /// <summary>The mod configuration.</summary>
-        private ModConfig _config;
+        private Config _config;
 
         /*********
         ** State
@@ -39,7 +39,7 @@ namespace Denifia.Stardew.BuyRecipes
         /// <param name="helper">The SMAPI injected mod helper.</param>
         public override void Entry(IModHelper helper)
         {
-            _config = helper.ReadConfig<ModConfig>();
+            _config = helper.ReadConfig<Config>();
 
             SaveEvents.AfterLoad += SaveEvents_AfterLoad;
             SaveEvents.AfterReturnToTitle += SaveEvents_AfterReturnToTitle;

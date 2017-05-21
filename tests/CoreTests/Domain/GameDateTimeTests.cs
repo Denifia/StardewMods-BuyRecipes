@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoreTests.Domain
+namespace Denifia.Stardew.BuyRecipes.Tests.CoreTests.Domain
 {
     [TestClass]
     public class GameDateTimeTests

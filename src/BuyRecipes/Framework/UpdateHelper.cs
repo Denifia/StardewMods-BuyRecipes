@@ -13,7 +13,7 @@ namespace Denifia.Stardew.BuyRecipes.Framework
     /// <remarks>Taken from Pathoschild</remarks>
     internal class UpdateHelper
     {
-        public static async Task<IDictionary<string, string>> GetLatestReleasesAsync(string url = ModConstants.UpdateUrl)
+        public static async Task<IDictionary<string, string>> GetLatestReleasesAsync(string url = Constants.UpdateUrl)
         {
             // build request
             // (avoid HttpClient for Mac compatibility)
@@ -37,7 +37,7 @@ namespace Denifia.Stardew.BuyRecipes.Framework
         /// <param name="current">The current version.</param>
         /// <param name="key">The mod key in the update document.</param>
         /// <param name="url">The URL from which to fetch the release versions.</param>
-        public static async Task<ISemanticVersion> LogVersionCheck(IMonitor monitor, ISemanticVersion current, string key = ModConstants.ModName, string url = ModConstants.UpdateUrl)
+        public static async Task<ISemanticVersion> LogVersionCheck(IMonitor monitor, ISemanticVersion current, string key = Constants.ModName, string url = Constants.UpdateUrl)
         {
             try
             {
