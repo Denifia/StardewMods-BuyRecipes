@@ -11,22 +11,8 @@ namespace Denifia.Stardew.BuyRecipes.Adapters
 {
     internal class GameObjectsAdapter : IGameObjectsAdapter
     {
-        private GameObjectsAdapter() { }
-        private static GameObjectsAdapter instance;
-        public static GameObjectsAdapter Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new GameObjectsAdapter();
-                }
-                return instance;
-            }
-        }
-
         public List<GameItem> GameObjects => _gameObjects ?? (_gameObjects = DeserializeGameObjects().ToList());
-
+        
         private List<GameItem> _gameObjects = new List<GameItem>();
         
         private IEnumerable<GameItem> DeserializeGameObjects()

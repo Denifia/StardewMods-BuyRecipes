@@ -17,11 +17,11 @@ namespace Denifia.Stardew.BuyRecipes.Core.Domain
         public GameItemWithQuantity ResultingItem => _resultingItem;
         public int Cost => _cost;
 
-        public static CookingRecipe Deserialise(string name, string data, IModHelper modHelper)
+        public static CookingRecipe Deserialise(string name, string data, IEnumerable<GameItem> gameObjects)
         {
             var cookingRecipeData = CookingRecipeData.Deserialise(data);
-            var ingredients = IngredientFactory.DeserializeIngredients(cookingRecipeData.IngredientsData, modHelper);
-            var resultingItem = IngredientFactory.DeserializeIngredient(cookingRecipeData.ResultingItemData, modHelper);
+            var ingredients = IngredientFactory.DeserializeIngredients(cookingRecipeData.IngredientsData, gameObjects);
+            var resultingItem = IngredientFactory.DeserializeIngredient(cookingRecipeData.ResultingItemData, gameObjects);
             var cost = RecipePricingFactory.CalculatePrice(cookingRecipeData.AcquisitionData);
             return new CookingRecipe(name, ingredients, resultingItem, cost);
         }

@@ -1,4 +1,8 @@
-﻿using Denifia.Stardew.BuyRecipes.Core.Framework;
+﻿using Denifia.Stardew.BuyRecipes.Core.Adapters;
+using Denifia.Stardew.BuyRecipes.Core.Framework;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Denifia.Stardew.BuyRecipes.Core.Domain
@@ -12,15 +16,15 @@ namespace Denifia.Stardew.BuyRecipes.Core.Domain
         /// Deserialises a GameItem from a string.
         /// </summary>
         /// <param name="data">The serialised GameItem.</param>
-        /// <param name="modHelper">An implementation of IModHelper.</param>
+        /// <param name="gameObjects">Available game objects.</param>
         /// <returns>The deserialised GameItem.</returns>
-        public static GameItem Deserialise(string data, IModHelper modHelper)
+        public static GameItem Deserialise(string data, IEnumerable<GameItem> gameObjects)
         {
             var dataParts = data.Split(' ');
             if (dataParts.Length != 1) return null;
             if (!int.TryParse(dataParts[0], out int id)) return null;
 
-            var gameItem = modHelper.GameObjects.FirstOrDefault(x => x.Id == id);
+            var gameItem = gameObjects.FirstOrDefault(x => x.Id == id);
             if (gameItem == null) return null;
 
             return new GameItem(id, gameItem.Name);

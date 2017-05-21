@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Denifia.Stardew.BuyRecipes.Core.Domain;
+using Autofac;
+using Denifia.Stardew.BuyRecipes.Adapters;
+using Denifia.Stardew.BuyRecipes.Core.Adapters;
 
 namespace Denifia.Stardew.BuyRecipes
 {
@@ -20,6 +23,7 @@ namespace Denifia.Stardew.BuyRecipes
         *********/
         /// <summary>The mod configuration.</summary>
         private Config _config;
+        private IGameObjectsAdapter _gameObjectsAdapter;
 
         /*********
         ** State
@@ -39,6 +43,16 @@ namespace Denifia.Stardew.BuyRecipes
         /// <param name="helper">The SMAPI injected mod helper.</param>
         public override void Entry(IModHelper helper)
         {
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(this).As<IMod>();
+            builder.RegisterInstance(helper).As<IModHelper>();
+            builder.RegisterInstance(this.Monitor).As<IMonitor>();
+            builder.RegisterType<SmapiMonitorAdapter>().As<ISmapiMonitorAdapter>().SingleInstance();
+            builder.RegisterType<GameObjectsAdapter>().As<IGameObjectsAdapter>().SingleInstance();
+            var container = builder.Build();
+
+            _gameObjectsAdapter = container.Resolve<IGameObjectsAdapter>();
+
             _config = helper.ReadConfig<Config>();
 
             SaveEvents.AfterLoad += SaveEvents_AfterLoad;
@@ -192,7 +206,7 @@ namespace Denifia.Stardew.BuyRecipes
             _unknownCookingRecipes = new List<CookingRecipe>();
             foreach (var recipe in CraftingRecipe.cookingRecipes)
             {
-                var cookingRecipe = CookingRecipe.Deserialise(recipe.Key, recipe.Value, ModHelper.Instance);
+                var cookingRecipe = CookingRecipe.Deserialise(recipe.Key, recipe.Value, _gameObjectsAdapter.GameObjects);
                 if (Game1.player.cookingRecipes.ContainsKey(cookingRecipe.Name))
                     _unknownCookingRecipes.Add(cookingRecipe);
             }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Denifia.Stardew.BuyRecipes.Framework
 {
-    internal class ModHelper : Denifia.Stardew.BuyRecipes.Core.Framework.IModHelper
+    internal class ModHelper
     {
         private static ModHelper instance;
 

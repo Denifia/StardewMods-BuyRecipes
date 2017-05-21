@@ -35,19 +35,20 @@
   <ItemGroup>
     <Compile Include="Adapters\IGameMessageAdapter.cs" />
     <Compile Include="Adapters\IGameObjectsAdapter.cs" />
+    <Compile Include="Adapters\ISmapiMonitorAdapter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Domain\CookingRecipe.cs" />
     <Compile Include="Domain\CookingRecipeData.cs" />
     <Compile Include="Domain\GameDateTime.cs" />
     <Compile Include="Domain\GameItem.cs" />
     <Compile Include="Domain\GameItemWithQuantity.cs" />
-    <Compile Include="Framework\IModHelper.cs" />
     <Compile Include="Framework\IngredientFactory.cs" />
-    <Compile Include="Framework\RecipeCostFactory.cs" />
+    <Compile Include="Framework\RecipePricingFactory.cs" />
     <Compile Include="Framework\RecipePricing\BaseRecipePricing.cs" />
     <Compile Include="Framework\RecipePricing\FriendBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\RecipePricing\LevelBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\RecipePricing\SkillBasedRecipeAcquisition.cs" />
+    <Compile Include="Smapi\LogLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp">

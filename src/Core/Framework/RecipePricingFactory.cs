@@ -7,9 +7,8 @@ namespace Denifia.Stardew.BuyRecipes.Framework
 {
     internal static class RecipePricingFactory
     {
-        private static IEnumerable<Type> _recipeAcquisitionTypes = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => p.IsSubclassOf(typeof(BaseRecipePricing)));
+        private static IEnumerable<Type> _recipeAcquisitionTypes = typeof(RecipePricingFactory).Assembly
+                .GetTypes().Where(p => p.IsSubclassOf(typeof(BaseRecipePricing)));
 
         private delegate bool TryCalculatePrice(string data, out int cost);
 
@@ -17,7 +16,10 @@ namespace Denifia.Stardew.BuyRecipes.Framework
         {
             foreach (var type in _recipeAcquisitionTypes)
             {
-                var tryCalculatePrice = (TryCalculatePrice)Delegate.CreateDelegate(typeof(TryCalculatePrice), null, typeof(Type).GetMethod("TryCalculatePrice"));
+                //var method = type.GetMethod("TryCalculatePrice");
+                //method.Invoke(null, conditions, out int cost);
+
+                var tryCalculatePrice = (TryCalculatePrice)Delegate.CreateDelegate(typeof(TryCalculatePrice), type.GetMethod("TryCalculatePrice"));
                 var success = tryCalculatePrice(conditions, out int cost);
                 if (success) return cost;
             }
