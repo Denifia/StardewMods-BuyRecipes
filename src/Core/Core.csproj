@@ -42,6 +42,8 @@
     <Compile Include="Domain\GameDateTime.cs" />
     <Compile Include="Domain\GameItem.cs" />
     <Compile Include="Domain\GameItemWithQuantity.cs" />
+    <Compile Include="ExtensionMethods\CookingRecipeExtensions.cs" />
+    <Compile Include="ExtensionMethods\GameItemExtensions.cs" />
     <Compile Include="Framework\ErrorHelper.cs" />
     <Compile Include="Framework\IErrorHelper.cs" />
     <Compile Include="Framework\IngredientFactory.cs" />
@@ -50,6 +52,8 @@
     <Compile Include="Framework\RecipePricing\FriendBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\RecipePricing\LevelBasedRecipeAcquisition.cs" />
     <Compile Include="Framework\RecipePricing\SkillBasedRecipeAcquisition.cs" />
+    <Compile Include="Services\GameItemNameService.cs" />
+    <Compile Include="Services\IGameItemNameService.cs" />
     <Compile Include="Smapi\LogLevel.cs" />
   </ItemGroup>
   <ItemGroup>

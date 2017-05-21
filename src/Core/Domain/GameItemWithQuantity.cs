@@ -4,28 +4,23 @@ using System.Linq;
 
 namespace Denifia.Stardew.BuyRecipes.Core.Domain
 {
-    /// <summary>
-    /// Immutable GameItem with a quantity.
-    /// </summary>
     public class GameItemWithQuantity : GameItem
     {
         /// <summary>
         /// Deserialises a GameItemWithQuantity from a string.
         /// </summary>
         /// <param name="data">The serialised GameItemWithQuantity.</param>
-        /// <param name="gameObjects">Available game objects.</param>
         /// <returns>The deserialised GameItemWithQuantity.</returns>
-        public static new GameItemWithQuantity Deserialise(string data, IEnumerable<GameItem> gameObjects)
+        public static new GameItemWithQuantity Deserialise(string data)
         {
             var dataParts = data.Split(' ');
             if (dataParts.Length != 2) return null;
             if (!int.TryParse(dataParts[0], out int id)) return null;
             if (!int.TryParse(dataParts[1], out int quantity)) return null;
 
-            var gameItem = gameObjects.FirstOrDefault(x => x.Id == id);
-            if (gameItem == null) return null;
+            // Name is not part of the serialised data
 
-            return new GameItemWithQuantity(id, gameItem.Name, quantity);
+            return new GameItemWithQuantity(id, null, quantity);
         }
 
         private int _quantity;

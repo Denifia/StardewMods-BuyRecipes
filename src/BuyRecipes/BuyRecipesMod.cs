@@ -14,6 +14,8 @@ using Denifia.Stardew.BuyRecipes.Adapters;
 using Denifia.Stardew.BuyRecipes.Core.Adapters;
 using Denifia.Stardew.BuyRecipes.Core.Framework;
 using Denifia.Stardew.BuyRecipes.Core.Converters;
+using Denifia.Stardew.BuyRecipes.Core.Services;
+using Denifia.Stardew.BuyRecipes.Core.ExtensionMethods;
 
 namespace Denifia.Stardew.BuyRecipes
 {
@@ -26,6 +28,7 @@ namespace Denifia.Stardew.BuyRecipes
         /// <summary>The mod configuration.</summary>
         private Config _config;
         private IGameObjectsAdapter _gameObjectsAdapter;
+        private IGameItemNameService _gameItemNameService;
 
         /*********
         ** State
@@ -65,6 +68,7 @@ namespace Denifia.Stardew.BuyRecipes
             var container = builder.Build();
 
             _gameObjectsAdapter = container.Resolve<IGameObjectsAdapter>();
+            _gameItemNameService = container.Resolve<IGameItemNameService>();
 
             _config = helper.ReadConfig<Config>();
 
@@ -219,7 +223,10 @@ namespace Denifia.Stardew.BuyRecipes
             _unknownCookingRecipes = new List<CookingRecipe>();
             foreach (var recipe in CraftingRecipe.cookingRecipes)
             {
-                var cookingRecipe = CookingRecipe.Deserialise(recipe.Key, recipe.Value, _gameObjectsAdapter.GameObjects);
+                var cookingRecipe = CookingRecipe.Deserialise(recipe.Key, recipe.Value)
+                    .PopulateIngredientsNames(_gameItemNameService)
+                    .PopulateResultingItemName(_gameItemNameService);
+
                 if (Game1.player.cookingRecipes.ContainsKey(cookingRecipe.Name))
                     _unknownCookingRecipes.Add(cookingRecipe);
             }
